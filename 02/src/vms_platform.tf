@@ -1,52 +1,25 @@
-# === Переменные для второй ВМ (DB) ===
-
-variable "vm_db_name" {
-  type    = string
-  default = "netology-develop-platform-db"
-}
-
-variable "vm_db_cores" {
-  type    = number
-  default = 2
-}
-
-variable "vm_db_memory" {
-  type    = number
-  default = 2
-}
-
-variable "vm_db_core_fraction" {
-  type    = number
-  default = 20
-}
-
-variable "vm_db_zone" {
-  type    = string
-  default = "ru-central1-b"
-}
-
-# === Ресурс: Виртуальная машина DB ===
-
+# === ВМ DB ===
 resource "yandex_compute_instance" "platform_db" {
   name        = local.vm_db_name
-  platform_id = var.vm_web_platform_id  # используется общая платформа
-
-  zone = var.vm_db_zone
+  platform_id = var.vm_web_platform_id
+  zone        = var.vm_db_zone
 
   resources {
-    cores         = var.vm_db_cores
-    memory        = var.vm_db_memory
-    core_fraction = var.vm_db_core_fraction
+    cores         = var.vms_resources["db"].cores
+    memory        = var.vms_resources["db"].memory
+    core_fraction = var.vms_resources["db"].core_fraction
   }
 
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.image_id
+      size     = var.vms_resources["db"].hdd_size
+      type     = var.vms_resources["db"].hdd_type
     }
   }
 
   scheduling_policy {
-    preemptible = var.vm_web_preemptible  # используется общая переменная
+    preemptible = var.vm_web_preemptible
   }
 
   network_interface {
@@ -54,8 +27,5 @@ resource "yandex_compute_instance" "platform_db" {
     nat       = true
   }
 
-  metadata = {
-    serial-port-enable = 1
-    ssh-keys           = "ubuntu:${var.vms_ssh_root_key}"
-  }
+  metadata = var.metadata
 }

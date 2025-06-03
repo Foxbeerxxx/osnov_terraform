@@ -722,3 +722,5 @@ resource "yandex_compute_instance" "platform" {
 ```
 
 4. `Проверяю и применяю`
+
+![8](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img8.png)
