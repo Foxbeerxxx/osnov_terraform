@@ -520,10 +520,35 @@ resource "yandex_compute_instance" "platform" {
 
 ### Задание 4
 
-`Приведите ответ в свободной форме........`
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
+1. `Добавляем код в файл outputs.tf`
+
+```
+output "vm_web_info" {
+  description = "Информация о Web VM"
+  value = {
+    name         = yandex_compute_instance.platform.name
+    external_ip  = yandex_compute_instance.platform.network_interface[0].nat_ip_address
+    fqdn         = yandex_compute_instance.platform.fqdn
+  }
+}
+
+output "vm_db_info" {
+  description = "Информация о DB VM"
+  value = {
+    name         = yandex_compute_instance.platform_db.name
+    external_ip  = yandex_compute_instance.platform_db.network_interface[0].nat_ip_address
+    fqdn         = yandex_compute_instance.platform_db.fqdn
+  }
+}
+
+
+```
+
+2. `Затем terraform init, terraform apply и после траблшутинга проверяем результат`
+
+![6](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img6.png)
+
 3. `Заполните здесь этапы выполнения, если требуется ....`
 4. `Заполните здесь этапы выполнения, если требуется ....`
 5. `Заполните здесь этапы выполнения, если требуется ....`
