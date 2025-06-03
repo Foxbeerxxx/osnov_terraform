@@ -222,27 +222,21 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 6. `Подключаюсь для проверки, что ssh ключ коректно передался на ВМ`
 
-[2](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img2.png)
+![2](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img2.png)
 
 7. `Также на самой машине проверяю команду curl ifconfig.me`
 
-[3](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img3.png)
+![3](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img3.png)
 
-
-
-
+8. `Что касается preemptible = true и core_fraction = 5`
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+Все эти функции очень хорошо могут сэкономить  бюджет на использование в YC
+
+preemptible = true    - Используется только 5% CPU, минимальная нагрузка
+preemptible = true  -ВМ может быть прервана в любой момент, зато стоит в 3-4 раза дешевле
+
 ```
-
-`При необходимости прикрепитe сюда скриншоты
-
-
 
 ---
 
