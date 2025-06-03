@@ -45,3 +45,46 @@ variable "vms_ssh_root_key" {
   default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5m9AhMRWiO+yybLYEHaJhFaODFZDTbOiYqitAxzWgs alexey@dell"
   description = "ssh-keygen -t ed25519"
 }
+
+###new vars
+variable "vm_web_name" {
+  type        = string
+  default     = "netology-develop-platform-web"
+  description = "Имя виртуальной машины"
+}
+
+variable "vm_web_platform_id" {
+  type        = string
+  default     = "standard-v1"
+  description = "Платформа для ВМ"
+}
+
+variable "vm_web_cores" {
+  type        = number
+  default     = 2
+  description = "Количество ядер"
+}
+
+variable "vm_web_memory" {
+  type        = number
+  default     = 2
+  description = "Оперативная память (ГБ)"
+}
+
+variable "vm_web_core_fraction" {
+  type        = number
+  default     = 5
+  description = "Доля производительности CPU"
+}
+
+variable "vm_web_preemptible" {
+  type        = bool
+  default     = true
+  description = "Прерываемая ли ВМ"
+}
+
+variable "vm_web_image_family" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "Семейство образов для ОС"
+}

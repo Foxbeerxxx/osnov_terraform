@@ -242,28 +242,155 @@ preemptible = true  -ВМ может быть прервана в любой м�
 
 ### Задание 2
 
-`Приведите ответ в свободной форме........`
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+1. ` Измененный main.tf`
+```
+resource "yandex_vpc_network" "develop" {
+  name = var.vpc_name
+}
+resource "yandex_vpc_subnet" "develop" {
+  name           = var.vpc_name
+  zone           = var.default_zone
+  network_id     = yandex_vpc_network.develop.id
+  v4_cidr_blocks = var.default_cidr
+}
+
+
+data "yandex_compute_image" "ubuntu" {
+  family = var.vm_web_image_family
+}
+resource "yandex_compute_instance" "platform" {
+  name        = var.vm_web_name
+  platform_id = var.vm_web_platform_id
+  resources {
+    cores         = var.vm_web_cores
+    memory        = var.vm_web_memory
+    core_fraction = var.vm_web_core_fraction
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+  scheduling_policy {
+    preemptible = var.vm_web_preemptible
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+
+  metadata = {
+    serial-port-enable = 1
+    ssh-keys = "ubuntu:${var.vms_ssh_root_key}"
+  }
+
+}
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+
+2. `И Добавляю все в файл переменных variables.tf`
+
+```
+###cloud vars
+
+variable "token" {
+  description = "IAM token for Yandex Cloud"
+  type        = string
+  default     = "y0__xCT0ufIBxjB3RMggtW4jxOA51ZsI3f2sKmFlatvU579i7Vgfw"
+}
+
+
+variable "cloud_id" {
+  type        = string
+  default     = "b1gvjpk4qbrvling8qq1"
+  description = "Cloud ID in Yandex.Cloud"
+}
+
+variable "folder_id" {
+  type        = string
+  default     = "b1gse67sen06i8u6ri78"
+  description = "Folder ID in Yandex.Cloud"
+}
+
+variable "default_zone" {
+  type        = string
+  default     = "ru-central1-a"
+  description = "Availability zone"
+}
+
+variable "default_cidr" {
+  type        = list(string)
+  default     = ["10.0.1.0/24"]
+  description = "Subnet CIDR block"
+}
+
+variable "vpc_name" {
+  type        = string
+  default     = "develop"
+  description = "VPC network & subnet name"
+}
+
+
+###ssh vars
+
+variable "vms_ssh_root_key" {
+  type        = string
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5m9AhMRWiO+yybLYEHaJhFaODFZDTbOiYqitAxzWgs alexey@dell"
+  description = "ssh-keygen -t ed25519"
+}
+
+###new vars
+variable "vm_web_name" {
+  type        = string
+  default     = "netology-develop-platform-web"
+  description = "Имя виртуальной машины"
+}
+
+variable "vm_web_platform_id" {
+  type        = string
+  default     = "standard-v1"
+  description = "Платформа для ВМ"
+}
+
+variable "vm_web_cores" {
+  type        = number
+  default     = 2
+  description = "Количество ядер"
+}
+
+variable "vm_web_memory" {
+  type        = number
+  default     = 2
+  description = "Оперативная память (ГБ)"
+}
+
+variable "vm_web_core_fraction" {
+  type        = number
+  default     = 5
+  description = "Доля производительности CPU"
+}
+
+variable "vm_web_preemptible" {
+  type        = bool
+  default     = true
+  description = "Прерываемая ли ВМ"
+}
+
+variable "vm_web_image_family" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "Семейство образов для ОС"
+}
+
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
 
+3. `Проверяю terraform plan`
 
----
+![4](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img4.png)
+
+4. `Получаю нужный результат`
 
 ### Задание 3
 
