@@ -28,7 +28,7 @@ variable "vm_db_zone" {
 # === Ресурс: Виртуальная машина DB ===
 
 resource "yandex_compute_instance" "platform_db" {
-  name        = var.vm_db_name
+  name        = local.vm_db_name
   platform_id = var.vm_web_platform_id  # используется общая платформа
 
   zone = var.vm_db_zone

@@ -549,18 +549,37 @@ output "vm_db_info" {
 
 ![6](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img6.png)
 
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+
+
+### Задание 5
+
+1. `Добавляю в locals.tf`
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+locals {
+  vm_web_name = "${var.vpc_name}-${var.vm_web_platform_id}-web"
+  vm_db_name  = "${var.vpc_name}-${var.vm_web_platform_id}-db"
+}
+
+```
+2. `В файле vms_platform.tf`
+
+```
+Меняю 
+name = var.vm_db_name
+на 
+name = local.vm_db_name
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+3. `Аналогично в main.tf`
+
+Меняю 
+name = var.vm_web_name
+на 
+name = local.vm_web_name
+```
+
+4. `Проверяю и применяю`
+
+![7](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img7.png)
+
