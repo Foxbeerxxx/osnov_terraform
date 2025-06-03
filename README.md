@@ -218,9 +218,19 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 5. `Проверяю,что ВМ создалась и смотрю|, что присвоен внешний ip 62.84.112.72`
 
-![1](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img1.png)`
+![1](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img1.png)
 
-6. 
+6. `Подключаюсь для проверки, что ssh ключ коректно передался на ВМ`
+
+[2](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img2.png)
+
+7. `Также на самой машине проверяю команду curl ifconfig.me`
+
+[3](https://github.com/Foxbeerxxx/osnov_terraform/blob/main/img/img3.png)
+
+
+
+
 
 ```
 Поле для вставки кода...
