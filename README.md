@@ -630,7 +630,7 @@ variable "metadata" {
 2. `В файле vms_platform.tf меняю`
 
 ```
-# === ВМ DB ===
+
 resource "yandex_compute_instance" "platform_db" {
   name        = local.vm_db_name
   platform_id = var.vm_web_platform_id
